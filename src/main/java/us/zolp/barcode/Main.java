@@ -1,4 +1,4 @@
-package us.zolp.qrgen;
+package us.zolp.barcode;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;

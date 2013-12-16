@@ -1,4 +1,4 @@
-package us.zolp.qrgen;
+package us.zolp.barcode;
 
 // Imports from java.util for Lists and Random generator
 import java.util.Random;

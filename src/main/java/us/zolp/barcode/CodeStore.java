@@ -1,4 +1,4 @@
-package us.zolp.qrgen;
+package us.zolp.barcode;
 
 import java.sql.Connection;
 import java.sql.SQLException;
