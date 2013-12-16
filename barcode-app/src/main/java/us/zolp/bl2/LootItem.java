@@ -1,5 +1,6 @@
 package us.zolp.bl2;
 
+
 public class LootItem {
 	private ItemType itemType;
 	private String itemName;
