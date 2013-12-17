@@ -1,4 +1,4 @@
-package us.zolp.bl2;
+package us.zolp.barcode.bl2;
 
 
 public class LootItem {

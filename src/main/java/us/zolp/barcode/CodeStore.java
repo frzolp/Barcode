@@ -5,11 +5,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-
 import java.util.List;
 import java.util.ArrayList;
 
-import us.zolp.bl2.*;
+import us.zolp.barcode.bl2.*;
 
 /**
  * 
