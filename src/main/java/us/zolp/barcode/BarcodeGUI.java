@@ -33,6 +33,8 @@ import javax.swing.SwingConstants;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import javax.swing.JTextField;
+import javax.swing.BoxLayout;
 
 /**
  * 
@@ -74,6 +76,8 @@ public class BarcodeGUI extends JFrame implements ActionListener {
 	
 	// I forgot what I did with this.
 	private String lastString;
+	private final JPanel panel_1 = new JPanel();
+	private final JTextField textField = new JTextField();
 	
 	/**
 	 * The default constructor
@@ -81,6 +85,8 @@ public class BarcodeGUI extends JFrame implements ActionListener {
 	public BarcodeGUI() {
 		// Set the title
 		super("Random QR Code Generator");
+		textField.setEditable(false);
+		textField.setColumns(10);
 
 		// GridBagLayouts and me: this sort of thing is my bag, baby.
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -89,10 +95,10 @@ public class BarcodeGUI extends JFrame implements ActionListener {
 		// one of them has a width of *0*
 		gridBagLayout.columnWidths = new int[] { 400, 0 };
 		// Four rows!
-		gridBagLayout.rowHeights = new int[] { 400, 48, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 400, 48, 0, 0, 0 };
 		// Weights. More layout things I don't understand
 		gridBagLayout.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 1.0, 0.0, 0.0,
+		gridBagLayout.rowWeights = new double[] { 1.0, 0.0, 0.0, 1.0,
 				Double.MIN_VALUE };
 		// Set the content pane's layout to the configured GridBagLayout
 		getContentPane().setLayout(gridBagLayout);
@@ -136,6 +142,7 @@ public class BarcodeGUI extends JFrame implements ActionListener {
 		panel.setBorder(new TitledBorder(null, "Length (characters)",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.insets = new Insets(0, 0, 5, 0);
 		gbc_panel.anchor = GridBagConstraints.SOUTH;
 		gbc_panel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_panel.gridx = 0;
@@ -170,6 +177,15 @@ public class BarcodeGUI extends JFrame implements ActionListener {
 		radio512.addActionListener(this);
 		panel.add(radio512);
 		radioList.add(radio512);
+		
+		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+		gbc_panel_1.fill = GridBagConstraints.BOTH;
+		gbc_panel_1.gridx = 0;
+		gbc_panel_1.gridy = 3;
+		getContentPane().add(panel_1, gbc_panel_1);
+		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.X_AXIS));
+		
+		panel_1.add(textField);
 		
 		// Now, when we resize the window, we scale the barcode appropriately
 		getRootPane().addComponentListener(new ComponentAdapter() {
@@ -209,7 +225,7 @@ public class BarcodeGUI extends JFrame implements ActionListener {
 		btnGenerate.requestFocus();
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(418, 542);
+		setSize(418, 592);
 		setVisible(true);
 	}
 
@@ -236,6 +252,7 @@ public class BarcodeGUI extends JFrame implements ActionListener {
 				codeImg = MatrixToImageWriter.toBufferedImage(bitMatrix);
 
 				if (imageIcon != null) {
+					textField.setText(text);
 					imageIcon.setImage(codeImg);
 					imageLabel.setIcon(imageIcon);
 					imageLabel.repaint();
