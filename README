@@ -1,0 +1,3 @@
+I have no idea what I'm doing. This is a random QR code generator, which I was inspired to write for the Borderlands 2 "LootTheWorld" barcode scanning app. It just generates QR codes at the moment, but it'll eventually allow you to save the codes and the items they correspond to.
+
+Build it with Maven.
