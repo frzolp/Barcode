@@ -35,26 +35,28 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.BoxLayout;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
+import java.awt.BorderLayout;
 
 /**
  * 
  * @author Francis Zolp
- *
+ * 
  */
 public class BarcodeGUI extends JFrame implements ActionListener {
 	private static final long serialVersionUID = -5849795342901389842L;
 	private int qrLen = 512;
-	private final String ALLCHARS 
-			= "QWERTYUIOPASDFGHJKLZXCVBNM"
+	private final String ALLCHARS = "QWERTYUIOPASDFGHJKLZXCVBNM"
 			+ "qwertyuiopasdfghjklzxcvbnm"
 			+ "`1234567890-=[];',./~!@#$%^&*()_+{}|:<>?";
-	
+
 	private static BufferedImage codeImg;
-	
+
 	private JButton btnGenerate;
 	private ImageIcon imageIcon;
 	private JLabel imageLabel;
-	
+
 	// Some radio buttons for choosing the length of entropy
 	private JRadioButton radio8 = new JRadioButton("8");
 	private JRadioButton radio16 = new JRadioButton("16");
@@ -63,30 +65,28 @@ public class BarcodeGUI extends JFrame implements ActionListener {
 	private JRadioButton radio128 = new JRadioButton("128");
 	private JRadioButton radio256 = new JRadioButton("256");
 	private JRadioButton radio512 = new JRadioButton("512");
-	
+
 	// The last radio button we had clicked
 	private Object lastBtn;
-	
+
 	// A list of radio buttons
 	private List<JRadioButton> radioList = new ArrayList<JRadioButton>();
-	
+
 	// The size of the QR code. This'll be changed upon resize events
 	private int curX = 400;
 	private int curY = 400;
-	
+
 	// I forgot what I did with this.
 	private String lastString;
 	private final JPanel panel_1 = new JPanel();
-	private final JTextField textField = new JTextField();
-	
+	private final JTextArea textArea = new JTextArea();
+
 	/**
 	 * The default constructor
 	 */
 	public BarcodeGUI() {
 		// Set the title
 		super("Random QR Code Generator");
-		textField.setEditable(false);
-		textField.setColumns(10);
 
 		// GridBagLayouts and me: this sort of thing is my bag, baby.
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -95,10 +95,10 @@ public class BarcodeGUI extends JFrame implements ActionListener {
 		// one of them has a width of *0*
 		gridBagLayout.columnWidths = new int[] { 400, 0 };
 		// Four rows!
-		gridBagLayout.rowHeights = new int[] { 400, 48, 0, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 400, 48, 0, 0, 0, 0 };
 		// Weights. More layout things I don't understand
 		gridBagLayout.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 1.0, 0.0, 0.0, 1.0,
+		gridBagLayout.rowWeights = new double[] { 1.0, 0.0, 0.0, 1.0, 1.0,
 				Double.MIN_VALUE };
 		// Set the content pane's layout to the configured GridBagLayout
 		getContentPane().setLayout(gridBagLayout);
@@ -109,6 +109,7 @@ public class BarcodeGUI extends JFrame implements ActionListener {
 		btnGenerate.addActionListener(this);
 		// Generate an image
 		btnGenerate.doClick();
+
 		// Oh great, more layout stuff.
 		GridBagConstraints gbc_btnGenerate = new GridBagConstraints();
 		gbc_btnGenerate.fill = GridBagConstraints.HORIZONTAL;
@@ -117,10 +118,10 @@ public class BarcodeGUI extends JFrame implements ActionListener {
 		gbc_btnGenerate.insets = new Insets(0, 0, 5, 0);
 		gbc_btnGenerate.gridx = 0;
 		gbc_btnGenerate.gridy = 1;
-		
+
 		// ImageIcon to hold the actual image of the QR code
 		imageIcon = new ImageIcon(codeImg);
-		
+
 		// ...and the Label to *display* the image
 		imageLabel = new JLabel();
 		// Center that puppy
@@ -136,7 +137,7 @@ public class BarcodeGUI extends JFrame implements ActionListener {
 		getContentPane().add(imageLabel, gbc_imageLabel);
 		// Add the button to the pane
 		getContentPane().add(btnGenerate, gbc_btnGenerate);
-		
+
 		// panel: a nice place to throw some radio buttons
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Length (characters)",
@@ -152,7 +153,7 @@ public class BarcodeGUI extends JFrame implements ActionListener {
 		radio8.addActionListener(this);
 		panel.add(radio8);
 		radioList.add(radio8);
-		
+
 		radio16.addActionListener(this);
 		panel.add(radio16);
 		radioList.add(radio16);
@@ -177,21 +178,25 @@ public class BarcodeGUI extends JFrame implements ActionListener {
 		radio512.addActionListener(this);
 		panel.add(radio512);
 		radioList.add(radio512);
-		
+
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.gridx = 0;
 		gbc_panel_1.gridy = 3;
 		getContentPane().add(panel_1, gbc_panel_1);
-		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.X_AXIS));
-		
-		panel_1.add(textField);
-		
+		panel_1.setLayout(new BorderLayout(0, 0));
+		textArea.setRows(5);
+		textArea.setEditable(false);
+		textArea.setLineWrap(true);
+
+		panel_1.add(textArea);
+
 		// Now, when we resize the window, we scale the barcode appropriately
 		getRootPane().addComponentListener(new ComponentAdapter() {
 			/**
-			 * componentResized: I do things to make barcodes as big
-			 * as they can possibly be (while staying proportional)
+			 * componentResized: I do things to make barcodes as big as they can
+			 * possibly be (while staying proportional)
 			 */
 			public void componentResized(ComponentEvent e) {
 				// If the width is greater than the height, use the
@@ -201,31 +206,15 @@ public class BarcodeGUI extends JFrame implements ActionListener {
 					curX = curY = imageLabel.getHeight();
 				else
 					curX = curY = imageLabel.getWidth();
-				
+
 				// Now let's pull together a QR code.
-				try {
-					// BitMatrix is the binary representation of a QR code
-					// and we generate one using the random string and image size
-					BitMatrix bitMatrix = new QRCodeWriter().encode(lastString,
-							BarcodeFormat.QR_CODE, curX, curY);
-
-					codeImg = MatrixToImageWriter.toBufferedImage(bitMatrix);
-
-					if (imageIcon != null) {
-						imageIcon.setImage(codeImg);
-						imageLabel.setIcon(imageIcon);
-						imageLabel.repaint();
-					}
-				} catch (WriterException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				generateQRCode(lastString);
 			}
 		});
 		btnGenerate.requestFocus();
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(418, 592);
+		setSize(418, 624);
 		setVisible(true);
 	}
 
@@ -238,29 +227,9 @@ public class BarcodeGUI extends JFrame implements ActionListener {
 		if (obj == btnGenerate) {
 			for (int x = 0; x < qrLen; x++) {
 				mytxt[x] = ALLCHARS.charAt(rand.nextInt(ALLCHARS.length()));
-				System.out.print(mytxt[x]);
 			}
-			System.out.println("");
-
 			text = new String(mytxt);
-			lastString = text;
-			
-			try {
-				BitMatrix bitMatrix = new QRCodeWriter().encode(text,
-						BarcodeFormat.QR_CODE, curX, curY);
-
-				codeImg = MatrixToImageWriter.toBufferedImage(bitMatrix);
-
-				if (imageIcon != null) {
-					textField.setText(text);
-					imageIcon.setImage(codeImg);
-					imageLabel.setIcon(imageIcon);
-					imageLabel.repaint();
-				}
-			} catch (WriterException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			generateQRCode(text);
 		} else {
 			if (obj == radio8)
 				qrLen = 8;
@@ -276,12 +245,14 @@ public class BarcodeGUI extends JFrame implements ActionListener {
 				qrLen = 256;
 			else if (obj == radio512)
 				qrLen = 512;
-			
+
 			for (JRadioButton btn : radioList) {
-				if (btn != obj)
-					btn.setSelected(false);
+				// if (btn != obj)
+				// btn.setSelected(false);
 				if (btn == obj && !btn.isSelected())
 					btn.setSelected(true);
+				else
+					btn.setSelected(false);
 			}
 			if (lastBtn != obj) {
 				lastBtn = obj;
@@ -290,5 +261,28 @@ public class BarcodeGUI extends JFrame implements ActionListener {
 
 			btnGenerate.requestFocus();
 		}
+	}
+
+	private void generateQRCode(String codeText) {
+		lastString = codeText;
+
+		try {
+			BitMatrix bitMatrix = new QRCodeWriter().encode(codeText,
+					BarcodeFormat.QR_CODE, curX, curY);
+
+			codeImg = MatrixToImageWriter.toBufferedImage(bitMatrix);
+
+			if (imageIcon != null) {
+				textArea.setText(codeText);
+				imageIcon.setImage(codeImg);
+				imageLabel.setIcon(imageIcon);
+				imageLabel.repaint();
+			}
+		} catch (WriterException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		btnGenerate.requestFocus();
 	}
 }
