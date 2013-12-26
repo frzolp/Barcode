@@ -1,7 +1,16 @@
 package us.zolp.barcode.bl2;
 
-
 public class LootItem {
+	public final String WEAPON = "Weapon", GRENADEMOD = "Grenade Mod",
+			CLASSMOD = "Class Mod", SHIELD = "Shield", TICKETS = "Tickets";
+	public final String ASSAULTRIFLE = "Assault Rifle", PISTOL = "Pistol",
+			ROCKETLAUNCHER = "Rocket Launcher", SHOTGUN = "Shotgun",
+			SMG = "SMG", SNIPERRIFLE = "Sniper Rifle";
+	private final String WHITE = "White", GREEN = "Green", BLUE = "Blue",
+			PURPLE = "Purple", PINK = "Pink", LEGENDARY = "Legendary",
+			PEARLESCENT = "Pearlescent";
+	private final String NONE = "None", FIRE = "Fire", SHOCK = "Shock",
+			CORROSIVE = "Corrosive", SLAG = "Slag", EXPLOSIVE = "Explosive";
 	private ItemType itemType;
 	private String itemName;
 	private int itemLevel;
@@ -35,11 +44,17 @@ public class LootItem {
 
 	/**
 	 * Adds a generic item to the DB
-	 * @param type			Item's {@code ItemType}
-	 * @param name			Name of item
-	 * @param level			Required level
-	 * @param barcodeText	String acting as barcode seed
-	 * @param barcodeLen	Length of barcode string
+	 * 
+	 * @param type
+	 *            Item's {@code ItemType}
+	 * @param name
+	 *            Name of item
+	 * @param level
+	 *            Required level
+	 * @param barcodeText
+	 *            String acting as barcode seed
+	 * @param barcodeLen
+	 *            Length of barcode string
 	 */
 	public LootItem(ItemType type, String name, int level, String barcodeText,
 			int barcodeLen) {
@@ -49,11 +64,17 @@ public class LootItem {
 
 	/**
 	 * Adds a weapon to the DB
-	 * @param type			Item's {@code WeaponType}
-	 * @param name			Weapon name
-	 * @param level			Required level
-	 * @param barcodeText	Barcode seed
-	 * @param barcodeLen	Length of barcode seed
+	 * 
+	 * @param type
+	 *            Item's {@code WeaponType}
+	 * @param name
+	 *            Weapon name
+	 * @param level
+	 *            Required level
+	 * @param barcodeText
+	 *            Barcode seed
+	 * @param barcodeLen
+	 *            Length of barcode seed
 	 */
 	public LootItem(WeaponType type, String name, int level,
 			String barcodeText, int barcodeLen) {
@@ -63,13 +84,21 @@ public class LootItem {
 
 	/**
 	 * Adds a weapon to the DB
-	 * @param type			Item's {@code WeaponType}
-	 * @param name			Weapon name
-	 * @param element		Weapon's {@code ElementType}
-	 * @param level			Required level
-	 * @param rarity		Weapon's {@code ItemRarity}
-	 * @param barcodeText	Barcode seed
-	 * @param barcodeLen	Length of barcode seed
+	 * 
+	 * @param type
+	 *            Item's {@code WeaponType}
+	 * @param name
+	 *            Weapon name
+	 * @param element
+	 *            Weapon's {@code ElementType}
+	 * @param level
+	 *            Required level
+	 * @param rarity
+	 *            Weapon's {@code ItemRarity}
+	 * @param barcodeText
+	 *            Barcode seed
+	 * @param barcodeLen
+	 *            Length of barcode seed
 	 */
 	public LootItem(WeaponType type, String name, ElementType element,
 			int level, ItemRarity rarity, String barcodeText, int barcodeLen) {
@@ -79,14 +108,23 @@ public class LootItem {
 
 	/**
 	 * Adds a weapon to the DB
-	 * @param type			Item's {@code WeaponType}
-	 * @param name			Weapon name
-	 * @param element		Weapon's {@code ElementType}
-	 * @param level			Required level
-	 * @param rarity		Weapon's {@code ItemRarity}
-	 * @param desc			Description
-	 * @param barcodeText	Barcode seed
-	 * @param barcodeLen	Length of barcode seed
+	 * 
+	 * @param type
+	 *            Item's {@code WeaponType}
+	 * @param name
+	 *            Weapon name
+	 * @param element
+	 *            Weapon's {@code ElementType}
+	 * @param level
+	 *            Required level
+	 * @param rarity
+	 *            Weapon's {@code ItemRarity}
+	 * @param desc
+	 *            Description
+	 * @param barcodeText
+	 *            Barcode seed
+	 * @param barcodeLen
+	 *            Length of barcode seed
 	 */
 	public LootItem(WeaponType type, String name, ElementType element,
 			int level, ItemRarity rarity, String desc, String barcodeText,
@@ -97,12 +135,19 @@ public class LootItem {
 
 	/**
 	 * Adds an elemental item to the DB
-	 * @param type			Item's {@code ItemType}
-	 * @param name			Name of item
-	 * @param level			Required level
-	 * @param element		Item's {@code ElementType}
-	 * @param barcodeText	Barcode seed
-	 * @param barcodeLen	Length of barcode seed
+	 * 
+	 * @param type
+	 *            Item's {@code ItemType}
+	 * @param name
+	 *            Name of item
+	 * @param level
+	 *            Required level
+	 * @param element
+	 *            Item's {@code ElementType}
+	 * @param barcodeText
+	 *            Barcode seed
+	 * @param barcodeLen
+	 *            Length of barcode seed
 	 */
 	public LootItem(ItemType type, String name, int level, ElementType element,
 			String barcodeText, int barcodeLen) {
@@ -112,13 +157,21 @@ public class LootItem {
 
 	/**
 	 * Adds an elemental item to the DB
-	 * @param type			Item's {@code ItemType}
-	 * @param name			Name of item
-	 * @param level			Required level
-	 * @param element		Item's {@code ElementType}
-	 * @param rarity		Item's {@code ItemRarity}
-	 * @param barcodeText	Barcode seed
-	 * @param barcodeLen	Length of barcode seed
+	 * 
+	 * @param type
+	 *            Item's {@code ItemType}
+	 * @param name
+	 *            Name of item
+	 * @param level
+	 *            Required level
+	 * @param element
+	 *            Item's {@code ElementType}
+	 * @param rarity
+	 *            Item's {@code ItemRarity}
+	 * @param barcodeText
+	 *            Barcode seed
+	 * @param barcodeLen
+	 *            Length of barcode seed
 	 */
 	public LootItem(ItemType type, String name, int level, ElementType element,
 			ItemRarity rarity, String barcodeText, int barcodeLen) {
@@ -128,14 +181,23 @@ public class LootItem {
 
 	/**
 	 * Adds an elemental item to the DB
-	 * @param type			Item's {@code ItemType}
-	 * @param name			Name of item
-	 * @param level			Required level
-	 * @param element		Item's {@code ElementType}
-	 * @param rarity		Item's {@code ItemRarity}
-	 * @param desc			Item description
-	 * @param barcodeText	Barcode seed
-	 * @param barcodeLen	Length of barcode seed
+	 * 
+	 * @param type
+	 *            Item's {@code ItemType}
+	 * @param name
+	 *            Name of item
+	 * @param level
+	 *            Required level
+	 * @param element
+	 *            Item's {@code ElementType}
+	 * @param rarity
+	 *            Item's {@code ItemRarity}
+	 * @param desc
+	 *            Item description
+	 * @param barcodeText
+	 *            Barcode seed
+	 * @param barcodeLen
+	 *            Length of barcode seed
 	 */
 	public LootItem(ItemType type, String name, int level, ElementType element,
 			ItemRarity rarity, String desc, String barcodeText, int barcodeLen) {
@@ -145,12 +207,19 @@ public class LootItem {
 
 	/**
 	 * Adds a class mod to the DB
-	 * @param type			{@code ClassType} this mod applies to
-	 * @param name			Class mod's name
-	 * @param level			Required level
-	 * @param element		Class mod's {@code ElementType}
-	 * @param barcodeText	Barcode seed
-	 * @param barcodeLen	Length of barcode seed
+	 * 
+	 * @param type
+	 *            {@code ClassType} this mod applies to
+	 * @param name
+	 *            Class mod's name
+	 * @param level
+	 *            Required level
+	 * @param element
+	 *            Class mod's {@code ElementType}
+	 * @param barcodeText
+	 *            Barcode seed
+	 * @param barcodeLen
+	 *            Length of barcode seed
 	 */
 	public LootItem(ClassType type, String name, int level,
 			ElementType element, String barcodeText, int barcodeLen) {
@@ -160,13 +229,21 @@ public class LootItem {
 
 	/**
 	 * Adds a class mod to the DB
-	 * @param type			{@code ClassType} this mod applies to
-	 * @param name			Class mod's name
-	 * @param level			Required level
-	 * @param element		Class mod's {@code ElementType}
-	 * @param rarity		{@code ItemRarity} of the class mod
-	 * @param barcodeText	Barcode seed
-	 * @param barcodeLen	Length of barcode seed
+	 * 
+	 * @param type
+	 *            {@code ClassType} this mod applies to
+	 * @param name
+	 *            Class mod's name
+	 * @param level
+	 *            Required level
+	 * @param element
+	 *            Class mod's {@code ElementType}
+	 * @param rarity
+	 *            {@code ItemRarity} of the class mod
+	 * @param barcodeText
+	 *            Barcode seed
+	 * @param barcodeLen
+	 *            Length of barcode seed
 	 */
 	public LootItem(ClassType type, String name, int level,
 			ElementType element, ItemRarity rarity, String barcodeText,
@@ -177,14 +254,23 @@ public class LootItem {
 
 	/**
 	 * Adds a class mod to the DB
-	 * @param type			{@code ClassType} this mod applies to
-	 * @param name			Class mod's name
-	 * @param level			Required level
-	 * @param element		Class mod's {@code ElementType}
-	 * @param rarity		{@code ItemRarity} of the class mod
-	 * @param desc			Description
-	 * @param barcodeText	Barcode seed
-	 * @param barcodeLen	Length of barcode seed
+	 * 
+	 * @param type
+	 *            {@code ClassType} this mod applies to
+	 * @param name
+	 *            Class mod's name
+	 * @param level
+	 *            Required level
+	 * @param element
+	 *            Class mod's {@code ElementType}
+	 * @param rarity
+	 *            {@code ItemRarity} of the class mod
+	 * @param desc
+	 *            Description
+	 * @param barcodeText
+	 *            Barcode seed
+	 * @param barcodeLen
+	 *            Length of barcode seed
 	 */
 	public LootItem(ClassType type, String name, int level,
 			ElementType element, ItemRarity rarity, String desc,
@@ -194,17 +280,28 @@ public class LootItem {
 	}
 
 	/**
-	 * Adds all fields to the DB. The big kahuna. 
-	 * @param type			Item's {@code ItemType}
-	 * @param name			Name of item
-	 * @param level			Required level
-	 * @param description	Description
-	 * @param rarity		Item's {@code ItemRarity}
-	 * @param weaponType	Item's {@code WeaponType}
-	 * @param classType		Item's {@code ClassType}
-	 * @param element		Item's {@code ElementType}
-	 * @param barcode		Barcode seed
-	 * @param barcodeLen	Length of barcode seed
+	 * Adds all fields to the DB. The big kahuna.
+	 * 
+	 * @param type
+	 *            Item's {@code ItemType}
+	 * @param name
+	 *            Name of item
+	 * @param level
+	 *            Required level
+	 * @param description
+	 *            Description
+	 * @param rarity
+	 *            Item's {@code ItemRarity}
+	 * @param weaponType
+	 *            Item's {@code WeaponType}
+	 * @param classType
+	 *            Item's {@code ClassType}
+	 * @param element
+	 *            Item's {@code ElementType}
+	 * @param barcode
+	 *            Barcode seed
+	 * @param barcodeLen
+	 *            Length of barcode seed
 	 */
 	public LootItem(ItemType type, String name, int level, String description,
 			ItemRarity rarity, WeaponType weaponType, ClassType classType,
@@ -223,6 +320,7 @@ public class LootItem {
 
 	/**
 	 * Gets the ItemType of the current instance
+	 * 
 	 * @return the type of item
 	 */
 	public ItemType getItemType() {
@@ -231,7 +329,9 @@ public class LootItem {
 
 	/**
 	 * Sets the instance's ItemType
-	 * @param itemType	The new ItemType
+	 * 
+	 * @param itemType
+	 *            The new ItemType
 	 */
 	public void setItemType(ItemType itemType) {
 		this.itemType = itemType;
@@ -239,6 +339,7 @@ public class LootItem {
 
 	/**
 	 * Gets the name of the current instance
+	 * 
 	 * @return the name of the item
 	 */
 	public String getItemName() {
@@ -247,7 +348,9 @@ public class LootItem {
 
 	/**
 	 * Sets the instance's name
-	 * @param itemName 	The new name
+	 * 
+	 * @param itemName
+	 *            The new name
 	 */
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
@@ -255,6 +358,7 @@ public class LootItem {
 
 	/**
 	 * Gets the level required by the item
+	 * 
 	 * @return the minimum level (1 - 71)
 	 */
 	public int getItemLevel() {
@@ -263,7 +367,9 @@ public class LootItem {
 
 	/**
 	 * Sets the item's required level
-	 * @param itemLevel	The new minimum level
+	 * 
+	 * @param itemLevel
+	 *            The new minimum level
 	 */
 	public void setItemLevel(int itemLevel) {
 		this.itemLevel = itemLevel;
